@@ -160,7 +160,7 @@ function Home()
                         // <li><h2>{item.title}</h2></li>
                         // <li><h2>{item.body}</h2></li>
                         <div className="card">
-                            <h2>{item.title}</h2>
+                            <Link to={"/viewpost/" + item._id }><h2>{item.title}</h2></Link>
                             <h2>{item.body}</h2>
                             <h4>{item.likes.length} likes</h4>
 
@@ -192,7 +192,7 @@ function Home()
                             }}
                             >Fork</button>
 
-                            <h4>Previous Comments</h4>
+                            {/* <h4>Previous Comments</h4> */}
                             <div>
                                 {
                                     item.comments.map(userComment=>{

@@ -1,8 +1,10 @@
 import { BrowserRouter, Route } from 'react-router-dom';
 import './App.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import Home from './screens/Home';
 import Signin from './screens/Signin';
 import Signup from './screens/Signup';
+import ViewPost from './screens/ViewPost';
 import CreatePost from './screens/CreatePost';
 import ForkedPost from './screens/ForkedPost';
 import Navbar from './Navbar';
@@ -15,6 +17,12 @@ function App() {
     <div >
       <BrowserRouter>
         <Navbar />
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
         <Route exact path="/"><Home/></Route>
         <Route exact path="/signin"><Signin/></Route>
         <Route exact path="/signup"><Signup/></Route>
@@ -23,6 +31,7 @@ function App() {
         <Route exact path="/categoryA"><CategoryA/></Route>
         <Route exact path="/categoryB"><CategoryB/></Route>
         <Route exact path="/categoryC"><CategoryC/></Route>
+        <Route exact path="/viewpost/:postId"><ViewPost/></Route>
       </BrowserRouter>
     </div>  
   );

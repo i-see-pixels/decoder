@@ -219,4 +219,13 @@ router.get('/allposts/:categoryName',requireLogin,(req,res)=>{
         })
 })
 
+router.get('/getPost/:postId',requireLogin,(req,res)=>{
+    const postId=req.params.postId;
+    Post.findById(postId)
+        .then((data)=>{
+            console.log(typeof(data.likes))
+            res.json(data);
+        })
+})
+
 module.exports=router;
