@@ -1,7 +1,7 @@
 // import { useState } from "react";
 import React , {useState} from 'react';
 import M from 'materialize-css';
-
+import classes from './CreatePost.module.css'
 function CreatePost()
 {
     const [title,setTitle]=useState("");
@@ -31,9 +31,9 @@ function CreatePost()
     }
 
     return(
-        <div>
-            <div className="mycard">
-                <div className="card auth-card">
+        <div className={classes.main}>
+            <div style={{textAlign:"center"}}>
+                <div className={classes.input}>
                     <input
                     type="text"
                     value={title}
@@ -47,7 +47,7 @@ function CreatePost()
                     />
                 </div>
 
-                <div className="card auth-card">
+                <div className={classes.input}>
                     <input
                     type="text"
                     value={body}
@@ -60,7 +60,7 @@ function CreatePost()
                     }
                     />
                 </div>
-                <div className="card auth-card">
+                <div className={classes.input}>
                     <input
                     type="file"
                     value={pic}
@@ -75,7 +75,7 @@ function CreatePost()
                     }
                     />
                 </div>
-                <div className="card auth-card">
+                <div className={classes.input}>
                     {/* need to put dropdown list here */}
                     <input 
                     type="text"
@@ -90,7 +90,7 @@ function CreatePost()
             </div>
 
             <button 
-            className="btn"
+            className={classes.button}
             onClick={()=>{
                 PostData();
             }}

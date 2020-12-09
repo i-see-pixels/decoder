@@ -1,11 +1,13 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState , useContext} from 'react';
 import { Link } from 'react-router-dom'
+import {UserContext} from '../App'
 
 function Home()
 {
-
+    const {state,dispatch}=useContext(UserContext)
     const [allThePosts,setAllThePosts]=useState([]);
     // var flag=1;
+    // console.log(state)
 
     useEffect(()=>{
         fetch('/allposts',{
@@ -69,6 +71,14 @@ function Home()
         .then(res=>res.json())
         .then((data)=>{
             console.log(data);
+            const newData=allThePosts.map(item=>{
+                if(item._id === data._id)
+                    return data;
+                else   
+                    return item;
+            })
+
+            setAllThePosts(newData);
             // flag+=1;
         })
         .catch((err)=>{
@@ -143,8 +153,32 @@ function Home()
         })
         .then(res=>res.json())
         .then(data=>{
-            console.log(data)
+            // console.log(data.forkedPost)
+            // console.log("state before ",state);
+            dispatch({type:"FORK" , payload : data.forkedPost})
+            localStorage.setItem("user",JSON.stringify(data))
+            // console.log("state after ",state);
         })
+    }
+
+    function UnForkPost(postId)
+    {
+        fetch('/unforkpost',{
+                method:"put",
+                headers:{
+                    "Content-Type":"application/json",
+                    "Authorization":"Bearer " + localStorage.getItem("jwt")
+                },
+                body:JSON.stringify({
+                    postId,
+                })
+            })
+            .then(res=>res.json())
+            .then(data=>{
+                // console.log(data.forkedPost)
+                dispatch({type:"FORK" , payload : data.forkedPost})
+                localStorage.setItem("user",JSON.stringify(data))
+            })
     }
 
     return (
@@ -154,44 +188,120 @@ function Home()
             <li><Link to="/categoryC">CategoryC</Link></li>
             {
                 allThePosts.map(item=>{
-                    // console.log("alltheposts");
-                    // console.log(item)
                     return(
-                        // <li><h2>{item.title}</h2></li>
-                        // <li><h2>{item.body}</h2></li>
+                        // console.log(item),
+
+                        // body: "d"
+                        // category: "C"
+                        // comments: []
+                        // likes: []
+                        // pic: "C:\fakepath\wallhaven-42qee6_1366x768.png"
+                        // postedby: {_id: "5fc9dbfa24626d26b8296d32", name: "y"}
+                        // title: "d"
+                        // __v: 0
+                        // _id: "5fc9e12024626d26b8296d33"
+                        // __proto__: Object
+
                         <div className="card">
                             <Link to={"/viewpost/" + item._id }><h2>{item.title}</h2></Link>
+                            {/* <h2>{item._id}</h2> */}
                             <h2>{item.body}</h2>
                             <h4>{item.likes.length} likes</h4>
 
-                            <button 
-                            className="btn"
-                            onClick={()=>{
-                                LikePost(item._id)
-                            }}
-                            >Like</button>
+                            <div>
+                            {
+                                item.likes.includes(state._id)
+                                ?
+                                    <button 
+                                    className="btn"
+                                    onClick={()=>{
+                                        UnlikePost(item._id)
+                                    }}
+                                    >Unlike</button>
+                                :
+                                    <button 
+                                    className="btn"
+                                    onClick={()=>{
+                                        LikePost(item._id)
+                                    }}
+                                    >Like</button>
 
-                            <button 
-                            className="btn"
-                            onClick={()=>{
-                                UnlikePost(item._id)
-                            }}
-                            >Unlike</button>
-                            
-                            <button 
-                            className="btn"
-                            onClick={()=>{
+                            }
+
+                            {
+                                item.postedby._id === state._id
+                                &&
+                                <button 
+                                className="btn"
+                                onClick={()=>{
                                 DeletePost(item._id)
-                            }}
-                            >Delete</button>
-                            
-                            <button 
+                                }}
+                                >Delete</button>
+                            }
+ 
+                            {
+                                
+                                state
+                                ?
+                                    // 
+                                    state.forkedPost.some(({_id})=>_id === item._id)
+                                    ?
+                                    <button 
+                                    className="btn"
+                                    onClick={()=>{
+                                        // console.log("yes");
+                                        UnForkPost(item._id)
+                                    }}
+                                    >UnFork</button>
+                                    :
+                                    <button 
+                                    className="btn"
+                                    onClick={()=>{
+                                        ForkPost(item._id)
+                                    }}
+                                    >Fork</button>
+
+                                :
+
+                                <h5> loading </h5>
+
+                            }
+
+                            {/* {
+                                state.forkedPost.includes(item._id)
+                                ?
+                                <button 
+                                className="btn"
+                                onClick={()=>{
+                                    UnForkPost(item._id)
+                                }}
+                                >UnFork</button>
+                                :
+                                <button 
+                                className="btn"
+                                onClick={()=>{
+                                    ForkPost(item._id)
+                                }}
+                                >Fork</button>
+                            }  */}
+
+                            {/* <button 
                             className="btn"
                             onClick={()=>{
                                 ForkPost(item._id)
                             }}
                             >Fork</button>
+                            
+                            <button 
+                            className="btn"
+                            onClick={()=>{
+                                UnForkPost(item._id)
+                            }}
+                            >Un Fork</button> */}
 
+
+
+                            </div>
                             {/* <h4>Previous Comments</h4> */}
                             <div>
                                 {

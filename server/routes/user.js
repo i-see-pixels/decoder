@@ -37,6 +37,7 @@ router.put('/unforkpost',requireLogin,(req,res)=>{
         }
         else
         {
+            // console.log("unfork ",result)
             res.json(result);
         }
     })

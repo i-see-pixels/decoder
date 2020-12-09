@@ -1,5 +1,7 @@
-import React, {useState} from 'react';
+import React, {useState, useContext} from 'react';
 import {useHistory} from 'react-router-dom';
+import { UserContext } from '../App'
+import classes from './Signin.module.css'
 
 function Signin()
 {
@@ -7,6 +9,7 @@ function Signin()
     const [password,setPassword]=useState("");
     const [email,setEmail]=useState("");
     const history=useHistory();
+    const {state,dispatch}=useContext(UserContext);
 
     function PostData()
     {
@@ -33,6 +36,7 @@ function Signin()
             {
                 localStorage.setItem("jwt",data.token);
                 localStorage.setItem("user",JSON.stringify(data.user))
+                dispatch({type:"USER",payload:data.user})
                 console.log("signed in successfully");
                 history.push("/");
             }
@@ -43,9 +47,9 @@ function Signin()
     }
 
     return (
-        <div>
-            <div className="mycard">
-                <div className="card auth-card">
+        <div className={classes.main}>
+            <div>
+                <div className={classes.input}>
                     <input
                     type="text"
                     placeholder="Email"
@@ -60,7 +64,7 @@ function Signin()
                     }
                     />
                 </div>  
-                <div className="card auth-card">
+                <div className={classes.input}>
                     <input
                     type="text"
                     placeholder="Password"
@@ -77,7 +81,7 @@ function Signin()
                 </div>  
             </div>
             <button 
-            className="btn"
+            className={classes.button}
             onClick={()=>PostData()}>Login</button>
         </div>
     );

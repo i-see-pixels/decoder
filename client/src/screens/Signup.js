@@ -1,5 +1,6 @@
 import React,{useState} from 'react';
 import {useHistory} from 'react-router-dom';
+import classes from './Signup.module.css'
 
 function Signup()
 {
@@ -32,9 +33,9 @@ function Signup()
     }
 
     return (
-        <div>
-            <div className="mycard">
-                <div className="card auth-card">
+        <div className={classes.main}>
+            <div>
+                <div className={classes.input}>
                     <input
                     type="text"
                     placeholder="Name"
@@ -49,7 +50,7 @@ function Signup()
                     }
                     />
                 </div>  
-                <div className="card auth-card">
+                <div className={classes.input}>
                     <input
                     type="text"
                     placeholder="Email"
@@ -64,7 +65,7 @@ function Signup()
                     }
                     />
                 </div>  
-                <div className="card auth-card">
+                <div className={classes.input}>
                     <input
                     type="text"
                     placeholder="Password"
@@ -82,7 +83,7 @@ function Signup()
             </div>
 
             <button
-            className="btn"
+            className={classes.button}
             onClick={()=>{
                 PostData();
             }}>

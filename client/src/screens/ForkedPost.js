@@ -1,8 +1,10 @@
-import react, { useEffect, useState } from 'react';
+import react, { useEffect, useState, useContext } from 'react';
+import {UserContext} from '../App'
 
 function ForkedPost()
 {
     const [myforks,setMyforks]=useState([]);
+    const {state,dispatch}=useContext(UserContext)
 
     useEffect(()=>{
         fetch('/getforkpost',{
@@ -35,8 +37,10 @@ function ForkedPost()
         })
         .then(res=>res.json())
         .then((data)=>{
-            console.log(data)
-            console.log("unforked successfully")
+            // console.log(data)
+            // console.log("unforked successfully")
+            dispatch({type:"FORK" , payload : data.forkedPost})
+            localStorage.setItem("user",JSON.stringify(data))
         })
         .catch((err)=>{
             console.log(err);
@@ -53,13 +57,31 @@ function ForkedPost()
                             <h2>{item.body}</h2>
                             <h5>{item.likes.length} likes</h5>
 
-                            <button 
+                            {/* <button 
                             className="btn"
                             onClick={()=>{
                                 UnforkPost(item._id)
                             }}>
                                 Unfork
-                            </button>
+                            </button> */}
+
+                            {
+                                state
+                                ?
+                                    state.forkedPost.some(({_id})=>_id === item._id)
+                                    ?
+                                    <button 
+                                    className="btn"
+                                    onClick={()=>{
+                                        // console.log("yes");
+                                        UnforkPost(item._id)
+                                    }}
+                                    >UnFork</button>
+                                    :
+                                    <h6> </h6>
+                                :
+                                <h5> !! loading </h5>
+                            }
 
                             <div>
                                 {

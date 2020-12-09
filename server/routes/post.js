@@ -69,64 +69,66 @@ router.get('/myposts',requireLogin,(req,res)=>{
 })
 
 router.put('/likepost',requireLogin,(req,res)=>{
-    Post.findById(req.body.postId)
-        .then((foundPost)=>{
-            foundPost.likes.push(req.user)
-            foundPost.save();
-            // console.log(foundPost)
-            res.json({message:foundPost.likes.length+" likes"})
-        })
-        .catch(err=>{
-            console.log(err)
-        })
+    // Post.findById(req.body.postId)
+    //     .then((foundPost)=>{
+    //         foundPost.likes.push(req.user)
+    //         foundPost.save();
+    //         // console.log(foundPost)
+    //         // res.json({message:foundPost.likes.length+" likes"})
+    //         // console.log(foundPost)
+    //         res.json(data);
+    //     })
+    //     .catch(err=>{
+    //         console.log(err)
+    //     })
 
 
     // THIS IS THE ALTERNATIVE APPROACH TO UPDATE THE LIKES ARRAY
     // DESCRIPTION AVAILABLE ON STACK OVERFLOW
 
-    // Post.findByIdAndUpdate(req.body.postId,{
-    //     $push:{likes:req.user}
-    // },{
-    //     new:true
-    // },(err,result)=>{
-    //     if(err){
-    //         console.log(err);
-    //     }
-    //     else{
-    //         res.json({message:result.likes.length+" likes"})
-    //     }
-    // })
+    Post.findByIdAndUpdate(req.body.postId,{
+        $push:{likes:req.user}
+    },{
+        new:true
+    },(err,result)=>{
+        if(err){
+            console.log(err);
+        }
+        else{
+            res.json(result)
+        }
+    })
 })
 
 router.put('/unlikepost',requireLogin,(req,res)=>{
-    Post.findById(req.body.postId)
-        .then((postFound)=>{
-            postFound.likes.pull(req.user);
-            postFound.save();
-            // console.log(postFound);
-            res.json({message:postFound.likes.length+" likes"})
-        })
-        .catch((err)=>{
-            console.log(err)
-        })
+    // Post.findById(req.body.postId)
+    //     .then((postFound)=>{
+    //         postFound.likes.pull(req.user);
+    //         postFound.save();
+    //         // console.log(postFound);
+    //         res.json({message:postFound.likes.length+" likes"})
+    //     })
+    //     .catch((err)=>{
+    //         console.log(err)
+        // })
     
     // THIS IS THE ALTERNATIVE APPROACH TO UPDATE THE LIKES ARRAY
     // DESCRIPTION AVAILABLE ON STACK OVERFLOW
 
-    // Post.findByIdAndUpdate(req.body.postId,{
-    //     $pull:{likes:req.user._id}
-    // },{
-    //     new:true
-    // },(err,result)=>{
-    //     if(err)
-    //     {
-    //         console.log(err);
-    //     }
-    //     else
-    //     {
-    //         res.json({message:result.likes.length+" likes"})
-    //     }
-    // })
+    Post.findByIdAndUpdate(req.body.postId,{
+        $pull:{likes:req.user._id}
+    },{
+        new:true
+    },(err,result)=>{
+        if(err)
+        {
+            console.log(err);
+        }
+        else
+        {
+            res.json(result)
+        }
+    })
 })
 
 router.put('/comment',requireLogin,(req,res)=>{
