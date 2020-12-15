@@ -40,6 +40,7 @@ function Toolbar()
     {
       return[
         <li className="nav-item" role="presentation"><a className="nav-link" href="/">Home</a></li>,
+        <li className="nav-item" role="presentation"><a className="nav-link" href="/newhome">New Home</a></li>,
         <li className="nav-item" role="presentation"><a className="nav-link" href="/forked">Forked Posts</a></li>,
         <li className="nav-item" role="presentation"><a className="nav-link" href="/create">Create Post</a></li>,
         <li className="nav-item" role="presentation"><a className="nav-link" href="#">About</a></li>,

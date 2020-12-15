@@ -1,27 +1,28 @@
-import react, { useEffect, useState, useContext } from 'react';
-import {Link}  from 'react-router-dom';
-import {UserContext} from '../../App';      // learn this navigation
+import React, { useEffect, useState , useContext} from 'react';
+import { Link } from 'react-router-dom'
+import {UserContext} from '../App'
 
-function CategoryA()
+function NewHome()
 {
-    const [allThePosts,setAllThePosts]=useState([]);
-    const categoryName="C";
     const {state,dispatch}=useContext(UserContext)
+    const [allThePosts,setAllThePosts]=useState([]);
+    // var flag=1;
+    // console.log(state)
 
     useEffect(()=>{
-        fetch(`/allposts/${categoryName}`,{
-            method:"get",
+        fetch('/allposts',{
+            // method:"get",
             headers:{
-                "Authorization" : "Bearer " + localStorage.getItem("jwt") 
+                "Authorization":"Bearer " + localStorage.getItem("jwt")
             }
         })
         .then(res=>res.json())
-        .then((data)=>{
-            console.log(data)
-            setAllThePosts(data)
+        .then((data)=>{                         // this is an array
+            // console.log(typeof(data));
+            setAllThePosts(data);
         })
         .catch((err)=>{
-            console.log(err)
+            console.log(err);
         })
     },[])
 
@@ -70,6 +71,14 @@ function CategoryA()
         .then(res=>res.json())
         .then((data)=>{
             console.log(data);
+            const newData=allThePosts.map(item=>{
+                if(item._id === data._id)
+                    return data;
+                else   
+                    return item;
+            })
+
+            setAllThePosts(newData);
             // flag+=1;
         })
         .catch((err)=>{
@@ -144,7 +153,11 @@ function CategoryA()
         })
         .then(res=>res.json())
         .then(data=>{
-            console.log(data)
+            // console.log(data.forkedPost)
+            // console.log("state before ",state);
+            dispatch({type:"FORK" , payload : data.forkedPost})
+            localStorage.setItem("user",JSON.stringify(data))
+            // console.log("state after ",state);
         })
     }
 
@@ -170,6 +183,9 @@ function CategoryA()
 
     return (
         <div>
+            <li><Link to="/categoryA">CategoryA</Link></li>
+            <li><Link to="/categoryB">CategoryB</Link></li>
+            <li><Link to="/categoryC">CategoryC</Link></li>
             {
                 allThePosts.map(item=>{
                     return(
@@ -316,9 +332,9 @@ function CategoryA()
                     )
                 })
             }
-            {/* <h1>this is Home</h1> */}
+            <h1>this is Home</h1>
         </div>
     );
 }
 
-export default CategoryA;
+export default NewHome;

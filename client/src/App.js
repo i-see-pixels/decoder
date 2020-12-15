@@ -7,6 +7,7 @@ import Signup from './screens/Signup';
 import ViewPost from './screens/ViewPost';
 import CreatePost from './screens/CreatePost';
 import ForkedPost from './screens/ForkedPost';
+import NewHome from './screens/NewHome';
 import Navbar from './Navbar';
 import CategoryA from './screens/category/CategoryA';
 import CategoryB from './screens/category/CategoryB';
@@ -49,6 +50,7 @@ function Routing()
         <br/>
         <br/>
         <Route exact path="/"><Home/></Route>
+        <Route exact path="/newhome"><NewHome/></Route>
         <Route exact path="/signin"><Signin/></Route>
         <Route exact path="/signup"><Signup/></Route>
         <Route exact path="/create"><CreatePost/></Route>
