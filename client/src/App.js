@@ -14,6 +14,7 @@ import CategoryB from './screens/category/CategoryB';
 import CategoryC from './screens/category/CategoryC';
 import { initialState , reducer } from './Reducer'
 import { createContext, useContext, useEffect, useReducer } from 'react';
+import Landing from './screens/landing'
 
 export const UserContext=createContext();
 

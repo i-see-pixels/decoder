@@ -1,6 +1,8 @@
 import React, { useEffect, useState , useContext} from 'react';
 import { Link } from 'react-router-dom'
 import {UserContext} from '../App'
+import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
+import { Carousel } from 'react-responsive-carousel';
 
 function Home()
 {
@@ -182,74 +184,118 @@ function Home()
     }
 
     return (
-        <div>
-            <li><Link to="/categoryA">CategoryA</Link></li>
-            <li><Link to="/categoryB">CategoryB</Link></li>
-            <li><Link to="/categoryC">CategoryC</Link></li>
-            {
-                allThePosts.map(item=>{
-                    return(
-                        // console.log(item),
+        <div className="home">
+            <div className="image">
+                <img className="img"src="https://www.awarenessdays.com/wp-content/uploads/2018/09/pride-flag.png" alt="" />      
+            </div>
+            <Carousel>
+                <div>
+                    <img src="https://bit.ly/2KHkuic" />
+                    <p className="legend">Hello</p>
+                    <p className="legend">Mission</p>
+                </div>
+                <div>
+                    <img src="https://bit.ly/2KHkuic" />
+                    <p className="legend">Legend 2</p>
+                </div>
+                <div>
+                    <img src="https://bit.ly/2KHkuic" />
+                    <p className="legend">Legend 3</p>
+                </div>
+            </Carousel>
 
-                        // body: "d"
-                        // category: "C"
-                        // comments: []
-                        // likes: []
-                        // pic: "C:\fakepath\wallhaven-42qee6_1366x768.png"
-                        // postedby: {_id: "5fc9dbfa24626d26b8296d32", name: "y"}
-                        // title: "d"
-                        // __v: 0
-                        // _id: "5fc9e12024626d26b8296d33"
-                        // __proto__: Object
 
-                        <div className="card">
-                            <Link to={"/viewpost/" + item._id }><h2>{item.title}</h2></Link>
-                            {/* <h2>{item._id}</h2> */}
-                            <h2>{item.body}</h2>
-                            <h4>{item.likes.length} likes</h4>
+        
+                <li><Link to="/categoryA">CategoryA</Link></li>
+                <li><Link to="/categoryB">CategoryB</Link></li>
+                <li><Link to="/categoryC">CategoryC</Link></li>
+                {
+                    allThePosts.map(item=>{
+                        return(
+                            // console.log(item),
 
-                            <div>
-                            {
-                                item.likes.includes(state._id)
-                                ?
+                            // body: "d"
+                            // category: "C"
+                            // comments: []
+                            // likes: []
+                            // pic: "C:\fakepath\wallhaven-42qee6_1366x768.png"
+                            // postedby: {_id: "5fc9dbfa24626d26b8296d32", name: "y"}
+                            // title: "d"
+                            // __v: 0
+                            // _id: "5fc9e12024626d26b8296d33"
+                            // __proto__: Object
+
+                            <div className="card">
+                                <Link to={"/viewpost/" + item._id }><h2>{item.title}</h2></Link>
+                                {/* <h2>{item._id}</h2> */}
+                                <h2>{item.body}</h2>
+                                <h4>{item.likes.length} likes</h4>
+
+                                <div>
+                                {
+                                    item.likes.includes(state._id)
+                                    ?
+                                        <button 
+                                        className="btn"
+                                        onClick={()=>{
+                                            UnlikePost(item._id)
+                                        }}
+                                        >Unlike</button>
+                                    :
+                                        <button 
+                                        className="btn"
+                                        onClick={()=>{
+                                            LikePost(item._id)
+                                        }}
+                                        >Like</button>
+
+                                }
+
+                                {
+                                    item.postedby._id === state._id
+                                    &&
                                     <button 
                                     className="btn"
                                     onClick={()=>{
-                                        UnlikePost(item._id)
+                                    DeletePost(item._id)
                                     }}
-                                    >Unlike</button>
-                                :
-                                    <button 
-                                    className="btn"
-                                    onClick={()=>{
-                                        LikePost(item._id)
-                                    }}
-                                    >Like</button>
+                                    >Delete</button>
+                                }
+    
+                                {
+                                    
+                                    state
+                                    ?
+                                        // 
+                                        state.forkedPost.some(({_id})=>_id === item._id)
+                                        ?
+                                        <button 
+                                        className="btn"
+                                        onClick={()=>{
+                                            // console.log("yes");
+                                            UnForkPost(item._id)
+                                        }}
+                                        >UnFork</button>
+                                        :
+                                        <button 
+                                        className="btn"
+                                        onClick={()=>{
+                                            ForkPost(item._id)
+                                        }}
+                                        >Fork</button>
 
-                            }
+                                    :
 
-                            {
-                                item.postedby._id === state._id
-                                &&
-                                <button 
-                                className="btn"
-                                onClick={()=>{
-                                DeletePost(item._id)
-                                }}
-                                >Delete</button>
-                            }
- 
-                            {
-                                
-                                state
-                                ?
-                                    // 
-                                    state.forkedPost.some(({_id})=>_id === item._id)
+                                    <h5> loading </h5>
+
+                                }
+
+                                {/* {
+                                    state.forkedPost.includes(item._id)
                                     ?
                                     <button 
                                     className="btn"
                                     onClick={()=>{
-                                        // console.log("yes");
                                         UnForkPost(item._id)
                                     }}
                                     >UnFork</button>
@@ -260,78 +306,55 @@ function Home()
                                         ForkPost(item._id)
                                     }}
                                     >Fork</button>
+                                }  */}
 
-                                :
-
-                                <h5> loading </h5>
-
-                            }
-
-                            {/* {
-                                state.forkedPost.includes(item._id)
-                                ?
-                                <button 
-                                className="btn"
-                                onClick={()=>{
-                                    UnForkPost(item._id)
-                                }}
-                                >UnFork</button>
-                                :
-                                <button 
+                                {/* <button 
                                 className="btn"
                                 onClick={()=>{
                                     ForkPost(item._id)
                                 }}
                                 >Fork</button>
-                            }  */}
-
-                            {/* <button 
-                            className="btn"
-                            onClick={()=>{
-                                ForkPost(item._id)
-                            }}
-                            >Fork</button>
-                            
-                            <button 
-                            className="btn"
-                            onClick={()=>{
-                                UnForkPost(item._id)
-                            }}
-                            >Un Fork</button> */}
+                                
+                                <button 
+                                className="btn"
+                                onClick={()=>{
+                                    UnForkPost(item._id)
+                                }}
+                                >Un Fork</button> */}
 
 
+
+                                </div>
+                                {/* <h4>Previous Comments</h4> */}
+                                <div>
+                                    {
+                                        item.comments.map(userComment=>{
+                                            // console.log(userComment)
+                                            return(
+                                                <h6>
+                                                    <span style={{fontWeight:"600"}}>{userComment.commentedBy.name}</span> {userComment.commentBody}
+                                                </h6>   
+                                            )
+                                        })
+                                    }
+                                </div>
+
+                                <div>
+                                    <form onSubmit={(e)=>{
+                                        makeComment(e.target[0].value , item._id);
+                                        e.preventDefault();     //when we submit forms, the page automatically gets reloaded
+                                    }}>                         
+                                        <input                  //to prevent that reloading, we have used e.preventDefault()
+                                        type="text"
+                                        placeholder="comments"
+                                        />
+                                    </form>
+                                </div>
 
                             </div>
-                            {/* <h4>Previous Comments</h4> */}
-                            <div>
-                                {
-                                    item.comments.map(userComment=>{
-                                        // console.log(userComment)
-                                        return(
-                                            <h6>
-                                                <span style={{fontWeight:"600"}}>{userComment.commentedBy.name}</span> {userComment.commentBody}
-                                            </h6>   
-                                        )
-                                    })
-                                }
-                            </div>
-
-                            <div>
-                                <form onSubmit={(e)=>{
-                                    makeComment(e.target[0].value , item._id);
-                                    e.preventDefault();     //when we submit forms, the page automatically gets reloaded
-                                }}>                         
-                                    <input                  //to prevent that reloading, we have used e.preventDefault()
-                                    type="text"
-                                    placeholder="comments"
-                                    />
-                                </form>
-                            </div>
-
-                        </div>
-                    )
-                })
-            }
+                        )
+                    })
+                }
             <h1>this is Home</h1>
         </div>
     );

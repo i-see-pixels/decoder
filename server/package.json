@@ -16,6 +16,7 @@
     "mongodb": "^3.5.9",
     "mongoose": "^5.9.19",
     "nodemon": "^2.0.6",
+    "react-responsive-carousel": "^3.2.11",
     "request": "^2.88.2"
   }
 }

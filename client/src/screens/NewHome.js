@@ -8,6 +8,9 @@ function NewHome()
     const [allThePosts,setAllThePosts]=useState([]);
     // var flag=1;
     // console.log(state)
+    var first=0;
+    var second=0;
+    var third=0;
 
     useEffect(()=>{
         fetch('/allposts',{
@@ -19,7 +22,36 @@ function NewHome()
         .then(res=>res.json())
         .then((data)=>{                         // this is an array
             // console.log(typeof(data));
-            setAllThePosts(data);
+            // setAllThePosts(data);
+            // const newData=data.map(item=>{
+
+            // })
+
+            for(var i=0; i<data.length; ++i)
+            {
+                if( data[i].likes.length > data[first].likes.length )
+                {
+                    third=second;
+                    second=first;
+                    first=i;
+                }
+                else if( data[i].likes.length > data[second].likes.length )
+                {
+                    third=second;
+                    second=i;
+                }
+                else
+                {
+                    third=i;
+                }
+            }
+            var newData=[];
+            newData.push(data[first]);
+            newData.push(data[second]);
+            newData.push(data[third]);
+
+            setAllThePosts(newData);
+
         })
         .catch((err)=>{
             console.log(err);
@@ -183,9 +215,7 @@ function NewHome()
 
     return (
         <div>
-            <li><Link to="/categoryA">CategoryA</Link></li>
-            <li><Link to="/categoryB">CategoryB</Link></li>
-            <li><Link to="/categoryC">CategoryC</Link></li>
+            <h1>this is new Home</h1>
             {
                 allThePosts.map(item=>{
                     return(
@@ -332,7 +362,7 @@ function NewHome()
                     )
                 })
             }
-            <h1>this is Home</h1>
+            
         </div>
     );
 }
