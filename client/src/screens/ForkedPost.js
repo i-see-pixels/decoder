@@ -1,10 +1,12 @@
 import react, { useEffect, useState, useContext } from 'react';
+import {useHistory} from 'react-router-dom';
 import {UserContext} from '../App'
 
 function ForkedPost()
 {
     const [myforks,setMyforks]=useState([]);
     const {state,dispatch}=useContext(UserContext)
+    const history=useHistory();
 
     useEffect(()=>{
         fetch('/getforkpost',{
@@ -37,10 +39,10 @@ function ForkedPost()
         })
         .then(res=>res.json())
         .then((data)=>{
-            // console.log(data)
-            // console.log("unforked successfully")
             dispatch({type:"FORK" , payload : data.forkedPost})
             localStorage.setItem("user",JSON.stringify(data))
+            // history.push('/forked');
+            window.location.reload();
         })
         .catch((err)=>{
             console.log(err);
@@ -57,14 +59,6 @@ function ForkedPost()
                             <h2>{item.body}</h2>
                             <h5>{item.likes.length} likes</h5>
 
-                            {/* <button 
-                            className="btn"
-                            onClick={()=>{
-                                UnforkPost(item._id)
-                            }}>
-                                Unfork
-                            </button> */}
-
                             {
                                 state
                                 ?
@@ -73,7 +67,6 @@ function ForkedPost()
                                     <button 
                                     className="btn"
                                     onClick={()=>{
-                                        // console.log("yes");
                                         UnforkPost(item._id)
                                     }}
                                     >UnFork</button>
@@ -86,7 +79,6 @@ function ForkedPost()
                             <div>
                                 {
                                     item.comments.map(userComment=>{
-                                        // console.log(userComment)
                                         return(
                                             <h6>
                                                 <span style={{fontWeight:"600"}}>{userComment.commentedBy.name}</span> {userComment.commentBody}

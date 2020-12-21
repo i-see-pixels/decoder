@@ -86,17 +86,20 @@ router.put('/likepost',requireLogin,(req,res)=>{
     // THIS IS THE ALTERNATIVE APPROACH TO UPDATE THE LIKES ARRAY
     // DESCRIPTION AVAILABLE ON STACK OVERFLOW
 
-    Post.findByIdAndUpdate(req.body.postId,{
-        $push:{likes:req.user}
-    },{
+    Post.findByIdAndUpdate(req.body.postId,{                // THE ALTERNATIVE APPROACH 
+        $push:{likes:req.user}                              // FOR THIS IS AVAILABLE IN
+    },{                                                     // USER.JS LINE NUMBER 33
         new:true
-    },(err,result)=>{
-        if(err){
-            console.log(err);
-        }
-        else{
-            res.json(result)
-        }
+    })
+    .populate({
+        path:'postedby',
+        select:'name _id'
+    })
+    .then((posts)=>{
+        res.json(posts);
+    })
+    .catch((err)=>{
+        console.log(err);
     })
 })
 
@@ -119,15 +122,16 @@ router.put('/unlikepost',requireLogin,(req,res)=>{
         $pull:{likes:req.user._id}
     },{
         new:true
-    },(err,result)=>{
-        if(err)
-        {
-            console.log(err);
-        }
-        else
-        {
-            res.json(result)
-        }
+    })
+    .populate({             
+        path:'postedby',
+            select:'name _id'
+        })
+    .then((posts)=>{
+        res.json(posts)
+    })
+    .catch((err)=>{
+        console.log(err);
     })
 })
 
@@ -180,16 +184,16 @@ router.delete('/delete/:postId',requireLogin,(req,res)=>{
     Post.findOne({_id:req.params.postId})
     .populate("postedby"," _id")
     .then((postToDelete)=>{
-        console.log("deleted")
-        console.log(req.user._id.toString());
-        console.log(postToDelete.postedby._id.toString());
+        // console.log("deleted")
+        // console.log(req.user._id.toString());
+        // console.log(postToDelete.postedby._id.toString());
         if(postToDelete.postedby._id.toString() === req.user._id.toString())
         {
             postToDelete.remove()
             .then(result=>{
                 // console.log("triggered")
                 console.log(result)
-                res.json("deleted successfully");
+                res.json(result);
             })
             .catch((err)=>{
                 console.log(err);
@@ -228,6 +232,11 @@ router.get('/getPost/:postId',requireLogin,(req,res)=>{
             console.log(typeof(data.likes))
             res.json(data);
         })
+})
+
+router.post('/submitQuery',requireLogin,(req,res)=>{
+    const userEmail=req.body.email;
+    const userQuery=req.body.query;
 })
 
 module.exports=router;

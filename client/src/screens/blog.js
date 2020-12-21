@@ -107,6 +107,7 @@ function  Home()
                     return data
             })
             setAllThePosts(newData);
+            window.location.reload();
             // flag+=1;
         })
         .catch((err)=>{
@@ -208,7 +209,6 @@ function  Home()
 
                             <div className="card">
                                 <Link to={"/viewpost/" + item._id }><h2>{item.title}</h2></Link>
-                                {/* <h2>{item._id}</h2> */}
                                 <h2>{item.body}</h2>
                                 <h4>{item.likes.length} likes</h4>
 

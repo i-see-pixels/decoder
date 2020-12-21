@@ -30,6 +30,7 @@ router.put('/unforkpost',requireLogin,(req,res)=>{
     },{
         new:true
     })
+    .populate("forkedPost","_id title")
     .exec((err,result)=>{
         if(err)
         {

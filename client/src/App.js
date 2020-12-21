@@ -9,6 +9,7 @@ import CreatePost from './screens/CreatePost';
 import ForkedPost from './screens/ForkedPost';
 // import NewHome from './screens/NewHome';
 import Navbar from './Navbar';
+import Footer from './Footer';
 import CategoryA from './screens/category/CategoryA';
 import CategoryB from './screens/category/CategoryB';
 import CategoryC from './screens/category/CategoryC';
@@ -62,6 +63,7 @@ function Routing()
         <Route exact path="/categoryB"><CategoryB/></Route>
         <Route exact path="/categoryC"><CategoryC/></Route>
         <Route exact path="/viewpost/:postId"><ViewPost/></Route>
+        <Footer/>
     </div>
   )
 }
