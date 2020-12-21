@@ -1,5 +1,5 @@
 import React from 'react'
-import classes from './landing.module.css'
+import './landing.css'
 
 const landing=()=>{
     return(

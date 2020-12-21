@@ -1,0 +1,42 @@
+.home{
+    padding-top: 100px;
+}
+
+.button{
+    width: 50%;;
+    margin-left:250px;
+    margin-bottom:15px
+}
+
+.input
+{
+    display: block;
+    width: 30%;
+   margin: 30px auto;
+}
+
+.item
+{
+    display:block;
+    margin-left: 20px;
+}
+
+.img
+{
+    width: 80%;
+    align-items: center;
+    margin-left: 150px;
+    height: 400px;
+    opacity: 50%;
+    margin-bottom: 10px;
+}
+.image { 
+    position: relative; 
+    width: 100%; /* for IE 6 */
+ }
+ 
+ 
+ .legend
+ {
+     background-color: rgb(65, 122, 172);
+ }

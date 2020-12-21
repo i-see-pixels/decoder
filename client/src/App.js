@@ -7,7 +7,7 @@ import Signup from './screens/Signup';
 import ViewPost from './screens/ViewPost';
 import CreatePost from './screens/CreatePost';
 import ForkedPost from './screens/ForkedPost';
-import NewHome from './screens/NewHome';
+// import NewHome from './screens/NewHome';
 import Navbar from './Navbar';
 import CategoryA from './screens/category/CategoryA';
 import CategoryB from './screens/category/CategoryB';
@@ -15,6 +15,7 @@ import CategoryC from './screens/category/CategoryC';
 import { initialState , reducer } from './Reducer'
 import { createContext, useContext, useEffect, useReducer } from 'react';
 import Landing from './screens/landing'
+import Blog from './screens/blog'
 
 export const UserContext=createContext();
 
@@ -51,11 +52,12 @@ function Routing()
         <br/>
         <br/>
         <Route exact path="/"><Home/></Route>
-        <Route exact path="/newhome"><NewHome/></Route>
+        {/* <Route exact path="/newhome"><NewHome/></Route> */}
         <Route exact path="/signin"><Signin/></Route>
         <Route exact path="/signup"><Signup/></Route>
         <Route exact path="/create"><CreatePost/></Route>
         <Route exact path="/forked"><ForkedPost/></Route>
+        <Route exact path="/blogs"><Navbar/><Blog/></Route>
         <Route exact path="/categoryA"><CategoryA/></Route>
         <Route exact path="/categoryB"><CategoryB/></Route>
         <Route exact path="/categoryC"><CategoryC/></Route>

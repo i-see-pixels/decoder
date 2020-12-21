@@ -1,0 +1,90 @@
+.landing {
+  background-color: #000;
+}
+
+.landing-header {
+  z-index: 1;
+  position: relative;
+  text-align: center;
+  padding-top: 40vh;
+  
+}
+
+.landing-header h1 {
+  color: #fff;
+  
+}
+.btn
+{
+    text-align: center;
+    padding-bottom: "2px";
+    padding-bottom: 20px;
+}
+.slideshow { 
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  z-index: 0;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  background-color: #000;
+}
+
+.slideshow li { 
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-size: cover;
+  background-position: 50% 50%;
+  background-repeat: no-repeat;
+  opacity: 0;
+  z-index: 0;
+  animation: imageAnimation 50s linear infinite; 
+}
+
+.slideshow li:nth-child(1) { 
+  background-image: url(https://api.time.com/wp-content/uploads/2020/04/dublin-pride.jpg?quality=85&w=1024&h=628&crop=1) 
+}
+.slideshow li:nth-child(2) { 
+  background-image: url(https://res.cloudinary.com/people-matters/image/upload/fl_immutable_cache,w_624,h_351,q_auto,f_auto/v1593444400/1593444399.jpg);
+  animation-delay: 10s; 
+}
+.slideshow li:nth-child(3) { 
+  background-image: url(https://cdn.britannica.com/95/199395-131-1BAC6C4B/women-symbol-lesbian-Gay-pride-human-rights-2015.jpg);
+  animation-delay: 20s; 
+}
+.slideshow li:nth-child(4) { 
+  background-image: url(https://media1.s-nbcnews.com/i/newscms/2020_11/3269036/200313-los-angeles-pride-ew-1250p_5a6558006af45cbdcde1ae253d4e5bd0.jpg);
+  animation-delay: 30s; 
+}
+.slideshow li:nth-child(5) { 
+  background-image: url(https://content.fortune.com/wp-content/uploads/2019/06/pride-month.jpg);
+  animation-delay: 40s; 
+}
+
+@keyframes imageAnimation { 
+  0% { 
+    opacity: 0; 
+    animation-timing-function: ease-in;
+  }
+  10% {
+    opacity: 1;
+    animation-timing-function: ease-out;
+  }
+  20% {
+    opacity: 1
+  }
+  30% {
+    opacity: 0
+  }
+}
+
+/* Older browser support - .no-cssanimations class added by modernizr */
+.no-cssanimations .slideshow li {
+    opacity: 1;
+}
