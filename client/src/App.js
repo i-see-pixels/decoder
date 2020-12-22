@@ -17,6 +17,7 @@ import { initialState , reducer } from './Reducer'
 import { createContext, useContext, useEffect, useReducer } from 'react';
 import Landing from './screens/landing'
 import Blog from './screens/blog'
+import MainFooter from './MainFooter'
 
 export const UserContext=createContext();
 
@@ -45,25 +46,18 @@ function Routing()
 
   return (
     <div >
-        <Navbar />
-        <br/>
-        <br/>
-        <br/>
-        <br/>
-        <br/>
-        <br/>
-        <Route exact path="/"><Home/></Route>
-        {/* <Route exact path="/newhome"><NewHome/></Route> */}
-        <Route exact path="/signin"><Signin/></Route>
-        <Route exact path="/signup"><Signup/></Route>
-        <Route exact path="/create"><CreatePost/></Route>
-        <Route exact path="/forked"><ForkedPost/></Route>
+        <Route exact path="/"><Landing/></Route>
+        <Route exact path="/home"><Navbar /><Home/><Footer/></Route>
+        <Route exact path="/signin"><Navbar /><Signin/></Route>
+        <Route exact path="/signup"><Navbar /><Signup/></Route>
+        <Route exact path="/create"><Navbar /><CreatePost/></Route>
+        <Route exact path="/forked"><Navbar /><ForkedPost/></Route>
         <Route exact path="/blogs"><Navbar/><Blog/></Route>
         <Route exact path="/categoryA"><CategoryA/></Route>
         <Route exact path="/categoryB"><CategoryB/></Route>
         <Route exact path="/categoryC"><CategoryC/></Route>
-        <Route exact path="/viewpost/:postId"><ViewPost/></Route>
-        <Footer/>
+        <Route exact path="/viewpost/:postId"><Navbar /><ViewPost/></Route>
+        <MainFooter/>
     </div>
   )
 }

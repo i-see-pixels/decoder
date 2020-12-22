@@ -1,28 +1,4 @@
-// import react from 'react';
-// import { Link, useHistory } from 'react-router-dom';
 
-// function Navbar()
-// {
-//     const history=useHistory();
-//     return (
-//         <div className = "nav-wrapper">
-//         <li><Link to="/">Home</Link></li>
-//         <li><Link to="/signin">Signin</Link></li>
-//         <li><Link to="/signup">Signup</Link></li>
-//         <li><Link to="/create">Create Post</Link></li>
-//         <li><Link to="/forked">Forked Posts</Link></li>
-//         {/* <li><Link to="/viewpost">View Posts</Link></li> */}
-//         <li>
-//             <button onClick={()=>{
-//                 localStorage.clear()
-//                 history.push('/signin')
-//             }}>Logout</button>
-//         </li>
-//         </div>
-//     )
-// }
-
-// export default Navbar;
 
 import React,{useContext} from 'react'
 import { Link, useHistory } from 'react-router-dom';
@@ -39,12 +15,19 @@ function Toolbar()
     if(state)
     {
       return[
-        <li className="nav-item" role="presentation"><a className="nav-link" href="/">Home</a></li>,
-        <li className="nav-item" role="presentation"><a className="nav-link" href="/newhome">New Home</a></li>,
+        <li className="nav-item" role="presentation"><a className="nav-link" href="/home">Home</a></li>,
         <li className="nav-item" role="presentation"><a className="nav-link" href="/forked">Forked Posts</a></li>,
         <li className="nav-item" role="presentation"><a className="nav-link" href="/blogs">Blogs</a></li>,
         <li className="nav-item" role="presentation"><a className="nav-link" href="/create">Create Post</a></li>,
         <li className="nav-item" role="presentation"><a className="nav-link" href="#">About</a></li>,
+        <div class="nav-item dropdown">
+                    <a href="#" className="nav-link dropdown-toggle" data-toggle="dropdown">Categories</a>
+                    <div class="dropdown-menu">
+                        <a href="/categoryA" className="dropdown-item">CategoryA</a>
+                        <a href="/categoryB" className="dropdown-item">CategoryB</a>
+                        <a href="/categoryC" className="dropdown-item">CategoryC</a>
+                    </div>
+                </div>,
         <li className="nav-item" role="presentation"><a className="nav-link" href="#">Contact Us</a></li>,
         <li className="nav-item" role="presentation" className="nav-link">
         <button className="btn btn-primary" type="button" style={{padding: '5px 10px', borderRadius: '10px', backgroundColor: '#13694d'}}
@@ -60,7 +43,8 @@ function Toolbar()
     {
       return[
         <li className="nav-item" role="presentation"><a className="nav-link" href="/signin">Signin</a></li>,
-        <li className="nav-item" role="presentation" style={{margin: '0 20px'}}><button className="btn btn-primary" type="button" style={{padding: '5px 10px', borderRadius: '10px', backgroundColor: '#13694d'}}><Link to="/signup">Signup</Link></button></li>
+        <li className="nav-item" role="presentation" style={{margin: '0 20px'}}><button className="btn btn-primary" type="button" style={{padding: '5px 10px', borderRadius: '10px', backgroundColor: '#FF9999'}}>
+          <Link to="/signup">Signup</Link></button></li>
       ]
     }
   }
@@ -92,7 +76,9 @@ function Toolbar()
         </div>
       </nav>
         </div>
-		)
+    )
+    
 }
+
 
 export default Toolbar;

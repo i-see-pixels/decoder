@@ -1,4 +1,5 @@
 import {useState} from 'react';
+import './Footer.css'
 
 function Footer()
 {
@@ -28,54 +29,38 @@ function Footer()
     }
 
     return (
-        // <div>
-        //     <h1>this is footer</h1>
-        //     <h2>Reach out to us</h2>
-        //     <input 
-        //     type="text" 
-        //     placeholder="email..."
-        //     onChange={(e)=>{
-        //         // console.log(e.target.value)
-        //         setEmail(e.target.value)
-        //     }}/>
-        //     <textarea 
-        //     placeholder="enter your text...."
-        //     onChange={(e)=>{
-        //         setQuery(e.target.value);
-        //     }}
-        //     />
-        //     <button type="submit" className="btn" onClick={
-        //         ()=>{SubmitQuery()}
-        //     }>Submit</button>
-        // </div>
-
-        <footer className="page-footer grey darken-3" style={{position:'fixed', bottom:'0', width:'100%'}}>
+        <footer className="" style={{position:'relative', bottom:'0', width: "100%",
+        height: "350px",backgroundColor:"#6D68B1"}}>
           <div className="container">
             <div className="row">
               <div className="col l6 s12">
-                <h5 className="white-text">Logo</h5>
+                <h1 style={{paddingTop:"100px",textAlign:"left",width:"200%"}}className="white-text">Have a query ?</h1>
+                <h1  style={{marginTop:"2px",textAlign:"left",width:"200%"}} className="white-text">Get in Touch</h1>
                 </div>
-            </div>
-            <div>
+                <div style={{paddingTop:"100px",marginLeft:"400px" ,marginTop:"2px",paddingBottom:"100px", alignItems:"right",width:"50%"}}>
                 <input 
+                style={{backgroundColor:"#FFFFFF",borderRadius:"4px"}}
                 type="text" 
                 placeholder="email..."
                 onChange={(e)=>{
                     // console.log(e.target.value)
                     setEmail(e.target.value)
                 }}/>
-
-                <textarea 
+                  <textarea 
+                  style={{backgroundColor:"#FFFFFF",borderRadius:"4px"}}
                 placeholder="enter your text...."
                 onChange={(e)=>{
                     setQuery(e.target.value);
                 }}
                 />
 
-                <button type="submit" className="btn" onClick={
+                <button 
+                  style={{backgroundColor:"#182628"}}                
+                type="submit" className="btn" onClick={
                     ()=>{SubmitQuery()}
                 }>Submit</button>
 
+            </div>
             </div>
           </div>
           {/* <div className="footer-copyright">

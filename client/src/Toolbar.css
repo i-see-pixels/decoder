@@ -15,3 +15,15 @@
     margin: auto;
     width: 50%;
   }
+
+  .dropdown:hover .dropdown-menu{
+    display: block;
+}
+.dropdown-menu{
+    margin-top: 0;
+}
+.dropdown-item
+{
+  clear: none;
+  font-weight: 500;
+}

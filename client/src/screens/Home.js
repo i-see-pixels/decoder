@@ -27,6 +27,7 @@ function Home()
                     <p className="legend">Legend 3</p>
                 </div>
             </Carousel>
+            
         </div>
     );
 }
