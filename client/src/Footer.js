@@ -28,26 +28,64 @@ function Footer()
     }
 
     return (
-        <div>
-            <h1>this is footer</h1>
-            <h2>Reach out to us</h2>
-            <input 
-            type="text" 
-            placeholder="email..."
-            onChange={(e)=>{
-                // console.log(e.target.value)
-                setEmail(e.target.value)
-            }}/>
-            <textarea 
-            placeholder="enter your text...."
-            onChange={(e)=>{
-                setQuery(e.target.value);
-            }}
-            ></textarea>
-            <button type="submit" className="btn" onClick={
-                ()=>{SubmitQuery()}
-            }>Submit</button>
-        </div>
+        // <div>
+        //     <h1>this is footer</h1>
+        //     <h2>Reach out to us</h2>
+        //     <input 
+        //     type="text" 
+        //     placeholder="email..."
+        //     onChange={(e)=>{
+        //         // console.log(e.target.value)
+        //         setEmail(e.target.value)
+        //     }}/>
+        //     <textarea 
+        //     placeholder="enter your text...."
+        //     onChange={(e)=>{
+        //         setQuery(e.target.value);
+        //     }}
+        //     />
+        //     <button type="submit" className="btn" onClick={
+        //         ()=>{SubmitQuery()}
+        //     }>Submit</button>
+        // </div>
+
+        <footer className="page-footer grey darken-3" style={{position:'fixed', bottom:'0', width:'100%'}}>
+          <div className="container">
+            <div className="row">
+              <div className="col l6 s12">
+                <h5 className="white-text">Logo</h5>
+                </div>
+            </div>
+            <div>
+                <input 
+                type="text" 
+                placeholder="email..."
+                onChange={(e)=>{
+                    // console.log(e.target.value)
+                    setEmail(e.target.value)
+                }}/>
+
+                <textarea 
+                placeholder="enter your text...."
+                onChange={(e)=>{
+                    setQuery(e.target.value);
+                }}
+                />
+
+                <button type="submit" className="btn" onClick={
+                    ()=>{SubmitQuery()}
+                }>Submit</button>
+
+            </div>
+          </div>
+          {/* <div className="footer-copyright">
+            <div className="container">
+            © 2014 Copyright Text
+            <a className="grey-text text-lighten-4 right" href="#!">More Links</a>
+            </div>
+          </div> */}
+        </footer>
+
     )
 }
 

@@ -5,6 +5,7 @@ const Post=mongoose.model("Post")
 const requireLogin=require('./middleware');
 const {ADMIN_PRIVILEDGE} = require('../keys');
 const { route } = require("./user");
+const nodemailer=require("nodemailer")
 // const { route } = require("./authentication");
 
 router.get('/allposts',requireLogin,(req,res)=>{
@@ -235,8 +236,34 @@ router.get('/getPost/:postId',requireLogin,(req,res)=>{
 })
 
 router.post('/submitQuery',requireLogin,(req,res)=>{
-    const userEmail=req.body.email;
-    const userQuery=req.body.query;
+    var data={
+        userEmail:req.body.email,
+        userQuery:req.body.query
+    }   
+    data=JSON.stringify(data);
+
+    var transporter = nodemailer.createTransport({
+        service: "Gmail",
+        auth: {
+          user: 'add your email id',
+          pass: 'add your password',
+        },
+      });
+
+    var mailOptions = {
+        from: 'add your email id',
+        to: 'vikashp0901@gmail.com',
+        subject: "Query reported",
+        html: data,
+      };
+
+    transporter.sendMail(mailOptions, function (error, info) {
+        if (error) {
+          console.log(error);
+        } else {
+          console.log("Email sent: " + info.response);
+        }
+      });
 })
 
 module.exports=router;
