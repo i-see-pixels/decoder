@@ -3,7 +3,8 @@ import { Link } from 'react-router-dom'
 import {UserContext} from '../App'
 import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
 import { Carousel } from 'react-responsive-carousel';
-
+import Car from '../Carousel/Carousel'
+import Item from '../Carousel/Item'
 function Home()
 {
     
@@ -12,22 +13,18 @@ function Home()
             <div className="image">
                 <img className="img"src="https://www.awarenessdays.com/wp-content/uploads/2018/09/pride-flag.png" alt="" />      
             </div>
-            <Carousel>
-                <div>
-                    <img src="https://bit.ly/2KHkuic" />
-                    <p className="legend">Hello</p>
-                    <p className="legend">Mission</p>
-                </div>
-                <div>
-                    <img src="https://bit.ly/2KHkuic" />
-                    <p className="legend">Legend 2</p>
-                </div>
-                <div>
-                    <img src="https://bit.ly/2KHkuic" />
-                    <p className="legend">Legend 3</p>
-                </div>
-            </Carousel>
-            
+           <Car></Car>
+           <div class="parent-flex">
+               {/* <p className="Flextext">Popular articles</p> */}
+         <div class="flex-item"></div>
+          <div class="flex-item"></div>
+         <div class="flex-item"></div>
+           </div>
+            <Car>
+            <Item><img src="https://bit.ly/2KHkuic" /> </Item>  
+            <Item><img src="https://bit.ly/2KHkuic" /> </Item>  
+            <Item><img src="https://bit.ly/2KHkuic" /> </Item>  
+            </Car>
         </div>
     );
 }
