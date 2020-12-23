@@ -86,6 +86,9 @@ function Signin()
             <button 
             className={classes.button}
             onClick={()=>PostData()}>Login</button>
+            <div class="progress">
+                <div class="determinate" style={{width:'70%'}}></div>
+            </div>
         </div>
     );
 }

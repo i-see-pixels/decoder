@@ -41,7 +41,6 @@ function ForkedPost()
         .then((data)=>{
             dispatch({type:"FORK" , payload : data.forkedPost})
             localStorage.setItem("user",JSON.stringify(data))
-            // history.push('/forked');
             window.location.reload();
         })
         .catch((err)=>{
@@ -50,26 +49,25 @@ function ForkedPost()
     }
 
     return(
-        <div>
+        <div style={{top:'100px'}}>
             {
+                <h1>All your forked posts appear here</h1>,
                 myforks.map(item=>{
                     return(
                         <div className="card">
                             <h1>{item.title}</h1>
+                            <img src={item.pic}/>
                             <h2>{item.body}</h2>
-                            <h5>{item.likes.length} likes</h5>
+                            <h4>{item.likes.length} likes</h4>
 
                             {
                                 state
                                 ?
                                     state.forkedPost.some(({_id})=>_id === item._id)
                                     ?
-                                    <button 
-                                    className="btn"
-                                    onClick={()=>{
+                                    <i className="small material-icons" title='Unfork this post' onClick={()=>{
                                         UnforkPost(item._id)
-                                    }}
-                                    >UnFork</button>
+                                    }} style={{cursor:'pointer'}}>highlight_off</i>
                                     :
                                     <h6> </h6>
                                 :
@@ -80,9 +78,9 @@ function ForkedPost()
                                 {
                                     item.comments.map(userComment=>{
                                         return(
-                                            <h6>
-                                                <span style={{fontWeight:"600"}}>{userComment.commentedBy.name}</span> {userComment.commentBody}
-                                            </h6>   
+                                            <h4>
+                                                <span style={{fontWeight:"700"}}>{userComment.commentedBy.name}</span> {userComment.commentBody}
+                                            </h4>   
                                         )
                                     })
                                 }
