@@ -24,7 +24,7 @@ router.get('/allposts',requireLogin,(req,res)=>{
 })
 
 router.post('/createpost',requireLogin,(req,res)=>{
-    const {title,body,pic,category}=req.body;
+    const {title,body,picurl,category}=req.body;
 
     if(!title || !body)
     {
@@ -41,7 +41,7 @@ router.post('/createpost',requireLogin,(req,res)=>{
     const newPost=new Post({
         title:title,
         body:body,
-        pic:pic,
+        pic:picurl,
         category,
         postedby:req.user,
     })
@@ -236,22 +236,24 @@ router.get('/getPost/:postId',requireLogin,(req,res)=>{
 })
 
 router.post('/submitQuery',requireLogin,(req,res)=>{
+    // console.log(req.body);
+    // console.log(req.user.email)
     var data={
-        userEmail:req.body.email,
-        userQuery:req.body.query
+        userEmail:req.user.email,
+        userQuery:req.body
     }   
     data=JSON.stringify(data);
 
     var transporter = nodemailer.createTransport({
         service: "Gmail",
         auth: {
-          user: 'add your email id',
-          pass: 'add your password',
+          user: 'vikash2719@gmail.com',
+          pass: 'shreyank789',
         },
       });
 
     var mailOptions = {
-        from: 'add your email id',
+        from: 'vikash2719@gmail.com',
         to: 'vikashp0901@gmail.com',
         subject: "Query reported",
         html: data,

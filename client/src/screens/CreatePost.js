@@ -1,5 +1,5 @@
 // import { useState } from "react";
-import React , {useState} from 'react';
+import React , {useEffect, useState} from 'react';
 import M from 'materialize-css';
 import classes from './CreatePost.module.css'
 function CreatePost()
@@ -7,9 +7,57 @@ function CreatePost()
     const [title,setTitle]=useState("");
     const [body,setBody]=useState("");
     const [pic,setPic]=useState("")
+    const [picurl,setPicurl]=useState("");
     const [category,setCategory]=useState("");
 
-    function PostData()
+
+    useEffect(()=>{
+        if(picurl)
+        {
+            console.log("picurl=",picurl)
+            fetch('/createpost',{
+                method:"post",
+                headers:{
+                    "Content-Type":"application/json",
+                    "Authorization":"Bearer " + localStorage.getItem("jwt")
+                },
+                body:JSON.stringify({
+                    title,
+                    body,
+                    picurl,
+                    category,
+                })
+            })
+            .then(res=>res.json())
+            .then((data)=>{
+                console.log(data);
+                M.toast({html:'Post created successfully',classes:'#ce93d8 purple', displayLength:2000});
+            })
+        }
+    },[picurl])
+
+    function PostImageOnCloud() 
+    {
+        const data=new FormData();
+        data.append('file',pic);
+        data.append('upload_preset','insta-clone')
+        data.append('cloud_name','vikash0901');
+
+        fetch('https://api.cloudinary.com/v1_1/vikash0901/image/upload',{
+            method:"post",
+            body:data
+        })
+        .then(res=>res.json())
+        .then(data=>{
+            console.log(data);
+            setPicurl(data.url)
+        })
+        .catch((err)=>{
+            console.log(err);
+        })
+    }
+
+    /*function PostData()
     {
         fetch('/createpost',{
             method:"post",
@@ -28,7 +76,7 @@ function CreatePost()
         .then((data)=>{
             console.log(data);
         })
-    }
+    }*/
 
     return(
         <div className={classes.main}>
@@ -63,14 +111,13 @@ function CreatePost()
                 <div className={classes.input}>
                     <input
                     type="file"
-                    value={pic}
                     placeholder="Picture"
                     onChange={
                         function(event)
                         {
-                            console.log(event.target.value)
-                            // setPic(event.target.files);
-                            setPic(event.target.value);
+                            console.log(event.target.files[0])
+                            setPic(event.target.files[0]);
+                            // setPic(event.target.value);
                         }
                     }
                     />
@@ -92,7 +139,7 @@ function CreatePost()
             <button 
             className={classes.button}
             onClick={()=>{
-                PostData();
+                PostImageOnCloud();
             }}
             >
                 Post

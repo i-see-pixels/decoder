@@ -2,6 +2,7 @@ import React, {useState, useContext} from 'react';
 import {useHistory} from 'react-router-dom';
 import { UserContext } from '../App'
 import classes from './Signin.module.css'
+import M from 'materialize-css'
 
 function Signin()
 {
@@ -31,6 +32,7 @@ function Signin()
             {
                 console.log("error ");
                 console.log(data.error);
+                M.toast({html:'Invalid UserName or Password',classes:'#ce93d8 purple', displayLength:2000});
             }
             else
             {
@@ -38,6 +40,7 @@ function Signin()
                 localStorage.setItem("user",JSON.stringify(data.user))
                 dispatch({type:"USER",payload:data.user})
                 console.log("signed in successfully");
+                M.toast({html:'Signed in successfully',classes:'#ce93d8 purple', displayLength:2000});
                 history.push("/");
             }
         })

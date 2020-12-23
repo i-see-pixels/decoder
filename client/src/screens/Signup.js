@@ -1,6 +1,7 @@
 import React,{useState} from 'react';
 import {useHistory} from 'react-router-dom';
 import classes from './Signup.module.css'
+import M from 'materialize-css'
 
 function Signup()
 {
@@ -25,6 +26,7 @@ function Signup()
         .then(res=>res.json())
         .then((res2)=>{
             console.log(res2)
+            M.toast({html:'Welcome to Pride We',classes:'#ce93d8 purple', displayLength:2000});
             history.push("/signin");
         })
         .catch((err)=>{

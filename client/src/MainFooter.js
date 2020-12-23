@@ -1,38 +1,74 @@
-import React from "react";
+import React,{useEffect, useState} from "react";
 import "./MainFooter.css";
+import M from 'materialize-css'
+
 function Footer() {
+
+  var elems=document.querySelectorAll('.modal')
+  var instances=M.Modal.init(elems);
+
+    function SubmitQuery(e)
+    {
+      e.preventDefault();
+
+        fetch('/submitQuery',{
+            "method":"POST",
+            headers:{
+                "Content-Type":"application/json",
+                "Authorization":"Bearer "  + localStorage.getItem("jwt")
+            },
+            body:JSON.stringify({
+                query:e.target[1].value,
+                contentIssue:e.target[0].checked
+            })
+        })
+        .then(res=>res.json())
+        .then((data)=>{
+            console.log(data);
+        })
+
+    }
+
   return (
     <div className="main-footer">
       <div className="container">
         <div className="row">
-          {/* Column1 */}
+
           <div className="col">
-            <h4>THICC MEMES INC</h4>
-            <h1 className="list-unstyled">
-              <li>342-420-6969</li>
-              <li>Moscow, Russia</li>
-              <li>123 Streeet South North</li>
-            </h1>
+            <h4>Get in touch with us</h4>
           </div>
-          {/* Column2 */}
+
           <div className="col">
-            <h4>Stuff</h4>
-            <ui className="list-unstyled">
-              <li>DANK MEMES</li>
-              <li>OTHER STUFF</li>
-              <li>GUD STUFF</li>
-            </ui>
+            
+              <a class="modal-trigger" href="#modal5"><i className='medium material-icons'>mail_outline</i>Report an error</a>
+
+              <div id="modal5" class="modal" style={{width:'600px !important ' }}>
+              <form onSubmit={(e)=>{SubmitQuery(e)}}>
+                <div class="modal-content" style={{background:"gainsboro"}}>
+                  
+                    <h4 style={{color:'darkcyan', fontSize:'xxx-large', textAlign:'center'}}>Tell us the issues you are facing</h4>
+
+                        <label>
+                          <input type="checkbox" id="content" name="content" style={{opacity:'10', marginTop:'12px'}} />
+                          <h2 style={{margin:"0 0 0 50px", color:'salmon'}}>Content Issue</h2>
+                        </label>
+
+                      <textarea id="otherErrors" name="otherErrors" type="text" style={{color: "indigo", font: "larger", height:'300px'}}
+                        placeholder="Mention here if there are some other errors" />
+
+                </div>
+                <div className="modal-footer" style={{background: "white"}}>
+                      <button class="modal-close btn-flat waves-effect waves-green" type="submit">Submit</button>
+                      <button class="modal-close btn-flat waves-effect waves-green" type="button">Close</button>
+                    </div>
+                
+                </form>
+              </div>
+            
           </div>
-          {/* Column3 */}
-          <div className="col">
-            <h4>WELL ANOTHER COLUMN</h4>
-            <ui className="list-unstyled">
-             <a href="/blogs">Blog</a>
-              <li>About</li>
-              <li>Contact Us</li>
-              <li>Helpline</li>
-            </ui>
-          </div>
+
+          
+
         </div>
         <hr />
         <div className="row">

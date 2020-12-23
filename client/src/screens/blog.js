@@ -1,10 +1,12 @@
 import React, { useEffect, useState, useContext } from 'react';
 import { Link } from 'react-router-dom'
 import './Home.css'
+import './blog.css'
 import {UserContext} from '../App'
 import Navbar from '../Navbar'
 import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
 import { Carousel } from 'react-responsive-carousel';
+import M from 'materialize-css'
 
 function  Home() 
 {
@@ -53,6 +55,7 @@ function  Home()
             })
 
             setAllThePosts(newData);
+            M.toast({html:'Post liked',classes:'#ce93d8 purple',displayLength:2000});
             // flag+=1;
         })
         .catch((err)=>{
@@ -83,6 +86,7 @@ function  Home()
             })
 
             setAllThePosts(newData);
+            M.toast({html:'Post disliked',classes:'#ce93d8 purple',displayLength:2000});
             // flag+=1;
         })
         .catch((err)=>{
@@ -162,6 +166,7 @@ function  Home()
             // console.log("state before ",state);
             dispatch({type:"FORK" , payload : data.forkedPost})
             localStorage.setItem("user",JSON.stringify(data))
+            M.toast({html:'Post forked successfully',classes:'#ce93d8 purple',displayLength:2000});
             // console.log("state after ",state);
         })
     }
@@ -183,6 +188,7 @@ function  Home()
                 // console.log(data.forkedPost)
                 dispatch({type:"FORK" , payload : data.forkedPost})
                 localStorage.setItem("user",JSON.stringify(data))
+                M.toast({html:'Post unforked successfully',classes:'#ce93d8 purple', displayLength:2000});
             })
     }    
 
@@ -209,6 +215,7 @@ function  Home()
 
                             <div className="card">
                                 <Link to={"/viewpost/" + item._id }><h2>{item.title}</h2></Link>
+                                <img src={item.pic}/>
                                 <h2>{item.body}</h2>
                                 <h4>{item.likes.length} likes</h4>
 
@@ -216,33 +223,24 @@ function  Home()
                                 {
                                     item.likes.includes(state._id)
                                     ?
-                                        <button 
-                                        className="btn"
-                                        onClick={()=>{
+                                        <i className="small material-icons" title='Unlike' onClick={()=>{
                                             UnlikePost(item._id)
-                                        }}
-                                        >Unlike</button>
+                                        }}>thumb_down</i>
                                     :
-                                        <button 
-                                        className="btn"
-                                        onClick={()=>{
+                                        <i className="small material-icons" title='Like' onClick={()=>{
                                             LikePost(item._id)
-                                        }}
-                                        >Like</button>
+                                        }} style={{cursor:'pointer'}}>thumb_up</i>
 
                                 }
 
                                 {
                                     item.postedby._id === state._id
                                     &&
-                                    <button 
-                                    className="btn"
-                                    onClick={()=>{
-                                    DeletePost(item._id)
-                                    }}
-                                    >Delete</button>
+                                    <i className="small material-icons" title='Delete' onClick={()=>{
+                                        DeletePost(item._id)
+                                    }} >delete</i>
                                 }
-    
+                
                                 {
                                     
                                     state
@@ -250,20 +248,13 @@ function  Home()
                                         // 
                                         state.forkedPost.some(({_id})=>_id === item._id)
                                         ?
-                                        <button 
-                                        className="btn"
-                                        onClick={()=>{
-                                            // console.log("yes");
+                                        <i className="small material-icons" title='Unfork this post' onClick={()=>{
                                             UnForkPost(item._id)
-                                        }}
-                                        >UnFork</button>
+                                        }} style={{cursor:'pointer'}}>highlight_off</i>
                                         :
-                                        <button 
-                                        className="btn"
-                                        onClick={()=>{
+                                        <i className="small material-icons" title='Fork this post for future' onClick={()=>{
                                             ForkPost(item._id)
-                                        }}
-                                        >Fork</button>
+                                        }} style={{cursor:'pointer'}}>input</i>
 
                                     :
 
@@ -307,14 +298,14 @@ function  Home()
 
                                 </div>
                                 {/* <h4>Previous Comments</h4> */}
-                                <div>
+                                <div style={{marginTop:'40px'}}>
                                     {
                                         item.comments.map(userComment=>{
                                             // console.log(userComment)
                                             return(
-                                                <h6>
-                                                    <span style={{fontWeight:"600"}}>{userComment.commentedBy.name}</span> {userComment.commentBody}
-                                                </h6>   
+                                                <h4>
+                                                    <span style={{fontWeight:"700"}}>{userComment.commentedBy.name} : </span> {userComment.commentBody}
+                                                </h4>   
                                             )
                                         })
                                     }
