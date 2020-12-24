@@ -248,7 +248,7 @@ router.post('/submitQuery',requireLogin,(req,res)=>{
         service: "Gmail",
         auth: {
           user: 'vikash2719@gmail.com',
-          pass: 'shreyank789',
+          pass: '',
         },
       });
 
