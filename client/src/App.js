@@ -47,17 +47,16 @@ function Routing()
   return (
     <div >
         <Route exact path="/"><Landing/></Route>
-        <Route exact path="/home"><Navbar /><Home/><Footer/></Route>
-        <Route exact path="/signin"><Navbar /><Signin/></Route>
-        <Route exact path="/signup"><Navbar /><Signup/></Route>
-        <Route exact path="/create"><Navbar /><CreatePost/></Route>
-        <Route exact path="/forked"><Navbar /><ForkedPost/></Route>
-        <Route exact path="/blogs"><Navbar/><Blog/></Route>
-        <Route exact path="/categoryA"><CategoryA/></Route>
-        <Route exact path="/categoryB"><CategoryB/></Route>
-        <Route exact path="/categoryC"><CategoryC/></Route>
-        <Route exact path="/viewpost/:postId"><Navbar /><ViewPost/></Route>
-        <MainFooter/>
+        <Route exact path="/home"><Navbar /><Home/><Footer/> <MainFooter/></Route>
+        <Route exact path="/signin"><Navbar /><Signin/> <MainFooter/></Route>
+        <Route exact path="/signup"><Navbar /><Signup/> <MainFooter/></Route>
+        <Route exact path="/create"><Navbar /><CreatePost/> <MainFooter/></Route>
+        <Route exact path="/forked"><Navbar /><ForkedPost/> <MainFooter/></Route>
+        <Route exact path="/blogs"><Navbar/><Blog/> <MainFooter/></Route>
+        <Route exact path="/categoryA"><CategoryA/> <MainFooter/></Route>
+        <Route exact path="/categoryB"><CategoryB/> <MainFooter/></Route>
+        <Route exact path="/categoryC"><CategoryC/> <MainFooter/></Route>
+        <Route exact path="/viewpost/:postId"><Navbar /><ViewPost/><MainFooter/></Route>
     </div>
   )
 }
