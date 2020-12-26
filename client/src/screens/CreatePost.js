@@ -2,6 +2,8 @@
 import React , {useEffect, useState} from 'react';
 import M from 'materialize-css';
 import classes from './CreatePost.module.css'
+import Spinner from './spinner';
+
 function CreatePost()
 {
     const [title,setTitle]=useState("");
@@ -9,6 +11,7 @@ function CreatePost()
     const [pic,setPic]=useState("")
     const [picurl,setPicurl]=useState("");
     const [category,setCategory]=useState("");
+    const [loading,setLoading]=useState(false);
 
 
     useEffect(()=>{
@@ -31,6 +34,7 @@ function CreatePost()
             .then(res=>res.json())
             .then((data)=>{
                 console.log(data);
+                setLoading(false)
                 M.toast({html:'Post created successfully',classes:'#ce93d8 purple', displayLength:2000});
             })
         }
@@ -38,6 +42,7 @@ function CreatePost()
 
     function PostImageOnCloud() 
     {
+        setLoading(true);
         const data=new FormData();
         data.append('file',pic);
         data.append('upload_preset','insta-clone')
@@ -140,9 +145,16 @@ function CreatePost()
             className={classes.button}
             onClick={()=>{
                 PostImageOnCloud();
+                
             }}
+            disabled={loading}
             >
-                Post
+               {
+                   loading?
+                   <Spinner/>
+                   :
+                   <h3>Post</h3>
+               }
             </button>
         </div>
     )

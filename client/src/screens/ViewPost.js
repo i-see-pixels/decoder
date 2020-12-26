@@ -35,8 +35,9 @@ function ViewPost()
         <div>
             {                                               // did this so that when postData will be available
                 postData?                                   // only then the further components can be accessed
-                <div className="formatDedicatedPost">                                     
+                <div className="formatDedicatedPost card">                                     
                     <h1>{postData.title}</h1>
+                    <img src={postData.pic}/>
                     <h3>{postData.body}</h3>
                     <h5>{postData.likes.length} likes</h5>
                     <div>

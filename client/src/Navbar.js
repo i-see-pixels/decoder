@@ -1,5 +1,3 @@
-
-
 import React,{useContext} from 'react'
 import { Link, useHistory } from 'react-router-dom';
 import './Toolbar.css'
@@ -30,7 +28,7 @@ function Toolbar()
                 </div>,
         <li className="nav-item" role="presentation"><a className="nav-link" href="#">Contact Us</a></li>,
         <li className="nav-item" role="presentation" className="nav-link">
-        <button className="btn btn-primary" type="button" style={{padding: '5px 10px', borderRadius: '10px', backgroundColor: '#13694d'}}
+        <button className="btn btn-primary" type="button" style={{ borderRadius: '10px', backgroundColor: '#13694d'}}
             onClick={()=>{
                 localStorage.clear()
                 dispatch({type:"CLEAR"})
@@ -50,7 +48,7 @@ function Toolbar()
   }
 
 		return(
-			<div style={{margin:'0 30px 0 0'}}>
+			<div>
 		   <nav className="navbar navbar-light navbar-expand-md" style={{height: '75px', position: 'fixed', zIndex: 10, width: '100%', backgroundColor: '#ffffff'}}>
         <div className="container-fluid"><a className="navbar-brand" href="#" style={{fontSize: '25px', textAlign: 'center', fontWeight: 800, color: '#13694d'}}>LOGO</a><button data-toggle="collapse" className="navbar-toggler" data-target="#navcol-1"><span className="sr-only">Toggle navigation</span><span className="navbar-toggler-icon" /></button>
           <div className="collapse navbar-collapse" id="navcol-1">
@@ -75,6 +73,11 @@ function Toolbar()
           </div>
         </div>
       </nav>
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
         </div>
     )
     

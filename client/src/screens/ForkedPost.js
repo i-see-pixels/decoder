@@ -49,7 +49,7 @@ function ForkedPost()
     }
 
     return(
-        <div style={{top:'100px'}}>
+        <div>
             {
                 <h1>All your forked posts appear here</h1>,
                 myforks.map(item=>{

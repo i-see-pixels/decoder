@@ -12,6 +12,7 @@ function  Home()
 {
     const {state,dispatch}=useContext(UserContext)
     const [allThePosts,setAllThePosts]=useState([]);
+    const [imageLoad,setImageload]=useState(false);
     // var flag=1;
     // console.log(state)
 
@@ -191,12 +192,16 @@ function  Home()
                 M.toast({html:'Post unforked successfully',classes:'#ce93d8 purple', displayLength:2000});
             })
     }    
+    
+    function imageLoaded(params) {
+        setImageload(true);
+    }
 
     return (
         <div>
-                <li><Link to="/categoryA">CategoryA</Link></li>
+                {/* <li><Link to="/categoryA">CategoryA</Link></li>
                 <li><Link to="/categoryB">CategoryB</Link></li>
-                <li><Link to="/categoryC">CategoryC</Link></li>
+                <li><Link to="/categoryC">CategoryC</Link></li> */}
                 {
                     allThePosts.map(item=>{
                         return(
@@ -215,7 +220,8 @@ function  Home()
 
                             <div className="card">
                                 <Link to={"/viewpost/" + item._id }><h2>{item.title}</h2></Link>
-                                <img src={item.pic}/>
+                                <img src={item.pic} onLoad={()=>{imageLoaded()}}/>
+                                {!imageLoad && <h2>loading image</h2>}
                                 <h2>{item.body}</h2>
                                 <h4>{item.likes.length} likes</h4>
 
