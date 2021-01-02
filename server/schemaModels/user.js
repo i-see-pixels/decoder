@@ -13,6 +13,12 @@ const userSchema=new mongoose.Schema({
         type:String,
         required:true
     },
+    resetToken:{
+        type:String
+    },
+    tokenExpiry:{
+        type:Date
+    },
     pic:{
         type:String,
         required:false,
