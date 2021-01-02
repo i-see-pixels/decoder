@@ -35,12 +35,12 @@ function Footer() {
         <div className="row">
 
           <div className="col">
-            <h4>Get in touch with us</h4>
+            <h4 style={{marginTop:'10px'}}>Get in touch with us</h4>
           </div>
 
           <div className="col">
             
-              <a class="modal-trigger" href="#modal5"><i className='medium material-icons'>mail_outline</i>Report an error</a>
+              <a class="modal-trigger" href="#modal5"><i className='medium material-icons'>mail_outline</i></a>
 
               <div id="modal5" class="modal" style={{width:'600px !important ' }}>
               <form onSubmit={(e)=>{SubmitQuery(e)}}>
@@ -70,7 +70,7 @@ function Footer() {
           
 
         </div>
-        <hr />
+        {/* <hr /> */}
         <div className="row">
           <p className="col-sm">
             &copy;{new Date().getFullYear()} Pride We | All rights reserved |

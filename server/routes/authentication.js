@@ -6,6 +6,7 @@ const bcrypt=require("bcryptjs")
 const jwt=require("jsonwebtoken")
 const {JWT_SECRET_KEY}=require("../keys")
 const requireLogin=require('./middleware')
+const Validator=require('validator')
 
 router.get('/protected',requireLogin,(req,res)=>{
     // res.json({message:"success"})
@@ -13,6 +14,12 @@ router.get('/protected',requireLogin,(req,res)=>{
 })
 
 router.post("/signup",(req,res)=>{
+
+    if(!Validator.isEmail(req.body.email))
+    {
+        return res.status(400).json({error:"email is invalid"})
+    }
+
     const {name,email,password}=req.body;
 
     if(!name || !email || !password)

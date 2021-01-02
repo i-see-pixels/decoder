@@ -2,6 +2,7 @@ import React,{useContext} from 'react'
 import { Link, useHistory } from 'react-router-dom';
 import './Toolbar.css'
 import {UserContext} from './App'
+import { Sidenav } from 'materialize-css';
 
 function Toolbar()
 {
@@ -26,7 +27,6 @@ function Toolbar()
                         <a href="/categoryC" className="dropdown-item">CategoryC</a>
                     </div>
                 </div>,
-        <li className="nav-item" role="presentation"><a className="nav-link" href="#">Contact Us</a></li>,
         <li className="nav-item" role="presentation" className="nav-link">
         <button className="btn btn-primary" type="button" style={{ borderRadius: '10px', backgroundColor: '#13694d'}}
             onClick={()=>{

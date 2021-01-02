@@ -198,7 +198,7 @@ function  Home()
     }
 
     return (
-        <div>
+        <div style={{marginBottom:'100px'}}>
                 {/* <li><Link to="/categoryA">CategoryA</Link></li>
                 <li><Link to="/categoryB">CategoryB</Link></li>
                 <li><Link to="/categoryC">CategoryC</Link></li> */}
