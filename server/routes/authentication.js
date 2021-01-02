@@ -8,6 +8,7 @@ const {JWT_SECRET_KEY}=require("../keys")
 const requireLogin=require('./middleware')
 const VerifySignup=require('../validation/signupValidator')
 const nodemailer=require('nodemailer');
+const crypto=require('crypto')
 
 router.get('/protected',requireLogin,(req,res)=>{
     // res.json({message:"success"})
@@ -38,6 +39,7 @@ router.post("/signup",(req,res)=>{
                 name:name,
                 email:email,
                 password:hashedPassword,
+                // password:password,
             })
 
             user.save()
@@ -57,7 +59,7 @@ router.post("/signup",(req,res)=>{
                         to: user.email,
                         subject: "Signup success",
                         html: `
-                        <h2Hi! ${user.name}</h2>
+                        <h2>Hi! ${user.name}</h2>
                         <h3>Welcome to PrideWe</h3>
                         `,
                       };
@@ -112,5 +114,77 @@ router.post("/signin",(req,res)=>{
 
 })
 
+router.post('/forgotPassword',(req,res)=>{
+    crypto.randomBytes(32,(err,buffer)=>{
+        if(err)
+        {
+            console.log(err)
+        }
+        const token=buffer.toString('hex');
+        
+
+        User.findOne({email:req.body.email})
+        .then((user)=>{
+            if(!user)
+            {
+                return res.status(400).json({error:"no such email exists before"})
+            }
+            user.resetToken=token;
+            user.tokenExpiry=Date.now()+3600000;
+            user.save();
+            // console.log(user)
+            var transporter = nodemailer.createTransport({
+                service: "Gmail",
+                auth: {
+                  user: process.env.GMAIL_ID,
+                  pass: process.env.GMAIL_PASSWORD,
+                },
+              });
+            
+              var mailOptions = {
+                from: process.env.GMAIL_ID,
+                to: user.email,
+                subject: "Forgot password",
+                html: `
+                <h2Hi! ${user.name}</h2>
+                <h3>Forgot your password??</h3>
+                <h4>No issues</h4>
+                <h4>Click on the <a href="http://localhost:3000/${token}">link</a> to reset your password</h4>
+                `,
+              };
+            
+              transporter.sendMail(mailOptions, function (error, info) {
+                if (error) {
+                  console.log(error);
+                } else {
+                    res.json({message:"Check your email id"})
+                    console.log("Email sent: " + info.response);
+                }
+              });
+        })
+
+    })
+})
+
+router.post('/updatePassword',(req,res)=>{
+    const {newPassword,userEmail,token}=req.body
+    User.findOne({email:userEmail,resetToken:token, tokenExpiry:{$gte:Date.now()}})
+    .then((user)=>{
+        if(!user){
+            return res.status(400).json({error:"Please try again"})
+        }
+
+        bcrypt.hash(newPassword,5)
+        .then((hashedPassword)=>{
+            user.password=hashedPassword
+            // user.password=newPassword
+            user.tokenExpiry=undefined
+            user.resetToken=undefined
+            user.save();
+            return res.json({success:"Password reset successfully"})
+        })
+
+    })
+})
 
 module.exports=router;

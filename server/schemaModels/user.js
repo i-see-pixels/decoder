@@ -14,10 +14,12 @@ const userSchema=new mongoose.Schema({
         required:true
     },
     resetToken:{
-        type:String
+        type:String,
+        default:undefined
     },
     tokenExpiry:{
-        type:Date
+        type:Date,
+        default:undefined
     },
     pic:{
         type:String,
@@ -30,7 +32,7 @@ const userSchema=new mongoose.Schema({
             ref:"Post"
         }
     ]
-});
+},{timestamps:true});
 
 mongoose.model("User",userSchema);
 
