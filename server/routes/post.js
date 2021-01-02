@@ -6,6 +6,7 @@ const requireLogin=require('./middleware');
 const {ADMIN_PRIVILEDGE} = require('../keys');
 const { route } = require("./user");
 const nodemailer=require("nodemailer")
+const VerifyCreatePost=require('../validation/createPostValidator')
 // const { route } = require("./authentication");
 
 router.get('/allposts',requireLogin,(req,res)=>{
@@ -24,19 +25,15 @@ router.get('/allposts',requireLogin,(req,res)=>{
 })
 
 router.post('/createpost',requireLogin,(req,res)=>{
-    const {title,body,picurl,category}=req.body;
 
-    if(!title || !body)
+    const {errors,isValid}=VerifyCreatePost(req.body,req.user);
+
+    if(!isValid)
     {
-        return res.status(422).json({error:"title or body missing"})
+        return res.status(400).json({error:errors})
     }
 
-
-    // THIS GIVES ONLY ADMINS ACCESS TO POST
-    // if(req.email != ADMIN_PRIVILEDGE)
-    // {
-    //     return res.status(422).json({error:"you are not authorized"})
-    // }
+    const {title,body,picurl,category}=req.body;
 
     const newPost=new Post({
         title:title,

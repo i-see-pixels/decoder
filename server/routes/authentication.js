@@ -6,7 +6,8 @@ const bcrypt=require("bcryptjs")
 const jwt=require("jsonwebtoken")
 const {JWT_SECRET_KEY}=require("../keys")
 const requireLogin=require('./middleware')
-const Validator=require('validator')
+const VerifySignup=require('../validation/signupValidator')
+const nodemailer=require('nodemailer');
 
 router.get('/protected',requireLogin,(req,res)=>{
     // res.json({message:"success"})
@@ -15,15 +16,14 @@ router.get('/protected',requireLogin,(req,res)=>{
 
 router.post("/signup",(req,res)=>{
 
-    if(!Validator.isEmail(req.body.email))
+    const {errors,isValid}=VerifySignup(req.body);
+
+    if(!isValid)
     {
-        return res.status(400).json({error:"email is invalid"})
+        return res.status(400).json({error:errors})
     }
 
     const {name,email,password}=req.body;
-
-    if(!name || !email || !password)
-        return res.status(422).json({error:"please enter all the fields"})
     
     User.findOne({email:email})
     .then((savedUser)=>{
@@ -42,6 +42,35 @@ router.post("/signup",(req,res)=>{
 
             user.save()
                 .then(()=>{
+                    /* SENDING WELCOME MAIL */
+
+                    var transporter = nodemailer.createTransport({
+                        service: "Gmail",
+                        auth: {
+                          user: process.env.GMAIL_ID,
+                          pass: process.env.GMAIL_PASSWORD,
+                        },
+                      });
+                    
+                      var mailOptions = {
+                        from: process.env.GMAIL_ID,
+                        to: user.email,
+                        subject: "Signup success",
+                        html: `
+                        <h2Hi! ${user.name}</h2>
+                        <h3>Welcome to PrideWe</h3>
+                        `,
+                      };
+                    
+                      transporter.sendMail(mailOptions, function (error, info) {
+                        if (error) {
+                          console.log(error);
+                        } else {
+                          console.log("Email sent: " + info.response);
+                        }
+                      });
+
+                    /* WELCOME MAIL SENT */ 
                     res.json({message:"user saved successfully"});
                     console.log("saved successfully")
                 })
